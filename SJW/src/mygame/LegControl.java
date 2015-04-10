@@ -20,12 +20,14 @@ public class LegControl extends AbstractControl {
     private boolean  left;
     private Geometry rightLeg;
     private Geometry leftLeg;
+    private Player   player;
     
     @Override
     public void setSpatial(Spatial spatial) {
     
         leftLeg  = (Geometry) ((Node)spatial).getChild("LeftLeg");
         rightLeg = (Geometry) ((Node)spatial).getChild("RightLeg");
+        player   = (Player)   spatial.getParent().getParent();
         
     }
     
@@ -57,7 +59,10 @@ public class LegControl extends AbstractControl {
     
     @Override
     protected void controlUpdate(float tpf) {
-        run(tpf);
+        
+        if (player.getLeft() || player.getRight())
+            run(tpf);
+        
     }
 
     @Override

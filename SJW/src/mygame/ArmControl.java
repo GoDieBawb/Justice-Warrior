@@ -19,12 +19,14 @@ public class ArmControl extends AbstractControl {
     private boolean  left;
     private Node     rightArm;
     private Node     leftArm;
+    private Player   player;
     
     @Override
     public void setSpatial(Spatial spatial) {
     
         leftArm  = (Node) ((Node)spatial).getChild("LeftArm");
         rightArm = (Node) ((Node)spatial).getChild("RightArm");
+        player   = (Player) spatial.getParent().getParent();
         
     }
     
@@ -56,7 +58,10 @@ public class ArmControl extends AbstractControl {
     
     @Override
     protected void controlUpdate(float tpf) {
-        run(tpf);
+        
+        if(player.getLeft() || player.getRight())
+            run(tpf);
+        
     }
 
     @Override
